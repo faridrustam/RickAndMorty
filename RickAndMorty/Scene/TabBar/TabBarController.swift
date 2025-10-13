@@ -19,7 +19,7 @@ class TabBarController: UITabBarController {
         tabBar.isTranslucent = false
         tabBar.barTintColor = .white
         let firstVC = UINavigationController(rootViewController: HomeController())
-        firstVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "home"), tag: 1)
+        firstVC.tabBarItem = UITabBarItem(title: "Characters", image: UIImage(systemName: "person.fill"), tag: 1)
         
 //        let secondVC = UINavigationController(rootViewController: SearchVC())
 //        secondVC.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass"), tag: 2)
