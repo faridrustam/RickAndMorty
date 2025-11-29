@@ -12,3 +12,4 @@ enum URLEndpoint: String {
     case location = "/location"
     case episode = "/episode"
 }
+

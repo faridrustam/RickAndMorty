@@ -34,11 +34,6 @@ class HomeController: BaseController {
         return refresh
     }()
     
-    @objc private func refreshStarted() {
-        vm.refresh()
-        refreshControl.endRefreshing()
-    }
-    
     let vm = HomeViewModel()
 
     override func viewDidLoad() {
@@ -68,7 +63,7 @@ class HomeController: BaseController {
     override func configureViewModel() {
         vm.sendState = { [weak self] state in
             guard let self else { return }
-            DispatchQueue.main.async {
+            Task {
                 switch state {
                 case .success:
                     self.collection.reloadData()
@@ -85,22 +80,27 @@ class HomeController: BaseController {
         }
         vm.fetchCharacters()
     }
+    
+    @objc private func refreshStarted() {
+        vm.refreshCharacters()
+        refreshControl.endRefreshing()
+    }
 }
 
 extension HomeController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        vm.characters.count
+        vm.data.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(CharacterCell.self)", for: indexPath) as! CharacterCell
-        cell.configureCell(with: vm.characters[indexPath.row])
+        cell.configureCell(with: vm.data[indexPath.row])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let model = vm.characters[indexPath.row]
+        let model = vm.data[indexPath.row]
         let coordinator = CharacterDetailCoordinator(navigationController: navigationController ?? UINavigationController(), title: model.name ?? "", url: model.url ?? "")
         coordinator.start()
     }
@@ -108,5 +108,8 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         .init(width: collectionView.frame.width / 2.0 - 24, height: 300)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        vm.pagination(index: indexPath.row)
+    }
 }
-

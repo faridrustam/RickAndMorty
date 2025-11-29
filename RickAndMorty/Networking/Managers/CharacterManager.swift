@@ -8,20 +8,22 @@
 import Foundation
 
 protocol CharactersManagerUseCase {
-    func fetchAllCharacters() async throws -> AllCharacter
+    func fetchAllCharacters(page: Int) async throws -> AllCharacter
 }
 
 final class CharactersManager: CharactersManagerUseCase {
     
-    func fetchAllCharacters() async throws -> AllCharacter {
-        let helper = NetworkHelper(endpoint: .character)
-        
+    func fetchAllCharacters(page: Int) async throws -> AllCharacter {
+        let helper = NetworkHelper(endpoint: .character, page: page)
         do {
-            let item = try await NetworkManager.shared.sendRequest(url: helper.requestURL, model: AllCharacter.self)
-            
+            let item = try await NetworkManager.shared.sendRequest(url: helper.requestURLbyPage, model: AllCharacter.self)
+            print(helper.requestURLbyPage)
             return item
         } catch {
+            print(helper.requestURLbyPage)
             throw error
         }
     }
+    
+    
 }

@@ -81,7 +81,7 @@ class CharacterCell: UICollectionViewCell {
     func configureCell(with character: AllCharacterResult) {
         characterName.text = character.name ?? ""
         characterStatus.text = "Status: \(character.status?.rawValue ?? "")"
-        characterSpecies.text = "Species: \(character.species?.rawValue ?? "")"
+        characterSpecies.text = "Species: \(character.species ?? "")"
         characterImage.setImage(with: character.image)
     }
 }
