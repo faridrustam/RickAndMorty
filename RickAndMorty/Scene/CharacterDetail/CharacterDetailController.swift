@@ -23,6 +23,7 @@ class CharacterDetailController: BaseController {
         collection.dataSource = self
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.register(CharacterDetailHeaderCell.self, forCellWithReuseIdentifier: "\(CharacterDetailHeaderCell.self)")
+        collection.register(InfoCell.self, forCellWithReuseIdentifier: "\(InfoCell.self)")
         return collection
     }()
     
@@ -82,7 +83,7 @@ extension CharacterDetailController: UICollectionViewDelegate, UICollectionViewD
             cell.configureCell(with: vm.characterData)
             return cell
         case .info:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(CharacterDetailHeaderCell.self)", for: indexPath) as! CharacterDetailHeaderCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(InfoCell.self)", for: indexPath) as! InfoCell
 
             return cell
         case .episodes:
@@ -104,14 +105,14 @@ extension CharacterDetailController {
             
             switch section {
             case .header:
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(300))
+                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(280))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(300))
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(280))
                 let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
                 
                 let section = NSCollectionLayoutSection(group: group)
-                section.contentInsets = .init(top: 16, leading: 16, bottom: 24, trailing: 16)
+                section.contentInsets = .init(top: 16, leading: 16, bottom: 0, trailing: 16)
                 return section
                 
             case .info:
@@ -122,7 +123,7 @@ extension CharacterDetailController {
                 let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
                 
                 let section = NSCollectionLayoutSection(group: group)
-                section.interGroupSpacing = 12
+                section.interGroupSpacing = 4
                 section.contentInsets = .init(top: 0, leading: 16, bottom: 24, trailing: 16)
                 return section
                 

@@ -11,7 +11,6 @@ class CharacterDetailHeaderCell: UICollectionViewCell {
     
     private lazy var circleImage: UIImageView = {
         let i = UIImageView()
-        i.image = UIImage(named: "rick")
         i.layer.borderColor = UIColor(red: 152.0/255.0, green: 180.0/255.0, blue: 235.0/255.0, alpha: 1.0).cgColor
         i.layer.borderWidth = 4
         i.translatesAutoresizingMaskIntoConstraints = false
@@ -20,7 +19,6 @@ class CharacterDetailHeaderCell: UICollectionViewCell {
     
     private lazy var nameLabel: UILabel = {
         let l = UILabel()
-        l.text = "Rick Sanchez"
         l.textColor = .label
         l.font = .systemFont(ofSize: 24, weight: .bold)
         l.translatesAutoresizingMaskIntoConstraints = false
@@ -29,7 +27,6 @@ class CharacterDetailHeaderCell: UICollectionViewCell {
     
     private lazy var subLabel: UILabel = {
         let l = UILabel()
-        l.text = "Earthling ? Test"
         l.textColor = .secondaryLabel
         l.font = .systemFont(ofSize: 14)
         l.translatesAutoresizingMaskIntoConstraints = false
