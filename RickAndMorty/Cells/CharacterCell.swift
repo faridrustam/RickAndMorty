@@ -68,13 +68,15 @@ class CharacterCell: UICollectionViewCell {
             characterName.topAnchor.constraint(equalTo: characterImage.bottomAnchor, constant: 4),
             characterName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             characterName.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            characterName.heightAnchor.constraint(equalToConstant: 50),
             
-            characterStatus.topAnchor.constraint(equalTo: characterName.bottomAnchor, constant: 4),
+            characterStatus.topAnchor.constraint(equalTo: characterName.bottomAnchor),
             characterStatus.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
     
             characterSpecies.topAnchor.constraint(equalTo: characterStatus.bottomAnchor, constant: 2),
             characterSpecies.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            characterSpecies.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4)
+            characterSpecies.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4),
+            characterSpecies.widthAnchor.constraint(equalToConstant: 150)
             ])
             }
 
