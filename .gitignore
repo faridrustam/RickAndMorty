@@ -1,0 +1,4 @@
+# Xcode user-specific data (should not be versioned)
+**/xcuserdata/
+*.xcuserstate
+*.xcuserdatad/

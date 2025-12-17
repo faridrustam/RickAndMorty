@@ -13,4 +13,10 @@ extension UIImageView {
         guard let urlString, let url = URL(string: urlString) else { return }
         self.kf.setImage(with: url)
     }
+    
+    func makeCircular() {
+        layoutIfNeeded()
+        layer.cornerRadius = bounds.width / 2
+        clipsToBounds = true
+    }
 }

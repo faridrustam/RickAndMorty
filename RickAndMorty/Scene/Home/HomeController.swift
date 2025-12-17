@@ -101,7 +101,7 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDataSource, 
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let model = vm.data[indexPath.row]
-        let coordinator = CharacterDetailCoordinator(navigationController: navigationController ?? UINavigationController(), title: model.name ?? "", url: model.url ?? "")
+        let coordinator = CharacterDetailCoordinator(navigationController: navigationController ?? UINavigationController(), title: model.name ?? "", characherData: model)
         coordinator.start()
     }
     

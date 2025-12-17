@@ -10,16 +10,16 @@ import UIKit
 final class CharacterDetailCoordinator: Coordinator {
     var navigationController: UINavigationController
     private let title: String
-    private let url: String
+    private let characherData: AllCharacterResult
     
-    init(navigationController: UINavigationController, title: String, url: String) {
+    init(navigationController: UINavigationController, title: String, characherData: AllCharacterResult) {
         self.navigationController = navigationController
         self.title = title
-        self.url = url
+        self.characherData = characherData
     }
     
     func start() {
-        let controller = CharacterDetailController()
+        let controller = CharacterDetailController(vm: CharacterDetailViewModel(characterData: characherData))
         controller.title = title
         controller.navigationItem.largeTitleDisplayMode = .never
         navigationController.show(controller, sender: nil)
