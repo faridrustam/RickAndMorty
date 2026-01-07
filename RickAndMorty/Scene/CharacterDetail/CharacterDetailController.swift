@@ -10,6 +10,7 @@ import UIKit
 enum CharacterSection: Int, CaseIterable {
     case header
     case info
+    case headerEpisodes
     case episodes
 }
 
@@ -42,16 +43,22 @@ class CharacterDetailController: BaseController {
     }
     
     override func configureUI() {
-        view.addSubViews(collection)
+        view.backgroundColor = .systemGray6
+        collection.backgroundColor = .clear
     }
     
     override func configureConstraints() {
+        view.addSubViews(collection)
         NSLayoutConstraint.activate([
             collection.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collection.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collection.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collection.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    override func configureViewModel() {
+        vm.getInfoItems()
     }
 }
 
@@ -67,9 +74,11 @@ extension CharacterDetailController: UICollectionViewDelegate, UICollectionViewD
         case .header:
             return 1
         case .info:
-            return 4
-        case .episodes:
+            return vm.infoItems.count
+        case .headerEpisodes:
             return 1
+        case .episodes:
+            return 5
         }
     }
     
@@ -82,8 +91,16 @@ extension CharacterDetailController: UICollectionViewDelegate, UICollectionViewD
             cell.configureCell(with: vm.characterData)
             return cell
         case .info:
+<<<<<<< Updated upstream
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(CharacterDetailHeaderCell.self)", for: indexPath) as! CharacterDetailHeaderCell
 
+=======
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(InfoCell.self)", for: indexPath) as! InfoCell
+            cell.configureCell(with: vm.infoItems[indexPath.row])
+            return cell
+        case .headerEpisodes:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(CharacterDetailHeaderCell.self)", for: indexPath) as! CharacterDetailHeaderCell
+>>>>>>> Stashed changes
             return cell
         case .episodes:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(CharacterDetailHeaderCell.self)", for: indexPath) as! CharacterDetailHeaderCell
@@ -124,6 +141,17 @@ extension CharacterDetailController {
                 let section = NSCollectionLayoutSection(group: group)
                 section.interGroupSpacing = 12
                 section.contentInsets = .init(top: 0, leading: 16, bottom: 24, trailing: 16)
+                return section
+                
+            case .headerEpisodes:
+                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(44))
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(44))
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+                
+                let section = NSCollectionLayoutSection(group: group)
+                section.contentInsets = .init(top: 24, leading: 0, bottom: 0, trailing: 0)
                 return section
                 
             case .episodes:
